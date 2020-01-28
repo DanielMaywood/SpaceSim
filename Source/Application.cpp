@@ -77,6 +77,7 @@ namespace SpaceSim
         {
             const auto &bodies = m_SolarSystem.GetBodies();
 
+            ImGui::Text("System Age: %.1f years", m_SolarSystem.AgeInYears());
             ImGui::Text("Body Count: %d", bodies.size());
 
             if (ImGui::TreeNode("Bodies"))
@@ -85,9 +86,9 @@ namespace SpaceSim
                 {
                     if (ImGui::TreeNode(body.Name.c_str()))
                     {
-                        ImGui::Text("Mass: %fkg", body.Mass);
-                        ImGui::Text("Position: (%f,%f)", body.Position.X, body.Position.Y);
-                        ImGui::Text("Velocity: (%f,%f)", body.Velocity.X, body.Velocity.Y);
+                        ImGui::Text("Mass: %.0fkg", body.Mass);
+                        ImGui::Text("Position: (%.0f,%.0f)", body.Position.X, body.Position.Y);
+                        ImGui::Text("Velocity: (%.0f,%.0f)", body.Velocity.X, body.Velocity.Y);
 
                         ImGui::TreePop();
                     }

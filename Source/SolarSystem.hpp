@@ -16,6 +16,8 @@ namespace SpaceSim
 
         void Draw(sf::RenderWindow &window) const;
 
+        float AgeInYears() const;
+
         std::vector<Body> &GetBodies();
 
     private:
@@ -23,5 +25,6 @@ namespace SpaceSim
 
     private:
         std::vector<Body> m_Bodies;
+        float             m_Time = 0.f;
     };
 } // namespace SpaceSim

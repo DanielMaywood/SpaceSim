@@ -13,6 +13,8 @@ namespace SpaceSim
 
     void SolarSystem::Update(float dt)
     {
+        m_Time += dt;
+
         for (auto &body : m_Bodies)
         {
             UpdateBody(body, dt);
@@ -34,6 +36,11 @@ namespace SpaceSim
 
             window.draw(circle);
         }
+    }
+
+    float SolarSystem::AgeInYears() const
+    {
+        return m_Time / (60.f * 60.f * 24.f * 365.25f);
     }
 
     std::vector<Body> &SolarSystem::GetBodies()
