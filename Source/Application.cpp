@@ -85,7 +85,10 @@ namespace SpaceSim
                 {
                     if (ImGui::TreeNode(body.Name.c_str()))
                     {
-                        ImGui::Text("Pos: (%.2f,%.2f)", body.Position.X, body.Position.Y);
+                        ImGui::Text("Mass: %fkg", body.Mass);
+                        ImGui::Text("Position: (%f,%f)", body.Position.X, body.Position.Y);
+                        ImGui::Text("Velocity: (%f,%f)", body.Velocity.X, body.Velocity.Y);
+
                         ImGui::TreePop();
                     }
                 }
