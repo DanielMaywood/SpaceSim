@@ -4,15 +4,15 @@ namespace SpaceSim
 {
     struct Vector2
     {
-        double X = 0.0;
-        double Y = 0.0;
+        float X = 0.0;
+        float Y = 0.0;
 
         Vector2 &operator+=(const Vector2 &other);
         Vector2 &operator-=(const Vector2 &other);
-        Vector2 &operator*=(double scalar);
+        Vector2 &operator*=(float scalar);
     };
 
     Vector2 operator+(Vector2 obj, const Vector2 &other);
     Vector2 operator-(Vector2 obj, const Vector2 &other);
-    Vector2 operator*(Vector2 obj, double scalar);
+    Vector2 operator*(Vector2 obj, float scalar);
 } // namespace SpaceSim

@@ -15,6 +15,14 @@ set(BUILD_SHARED_LIBS FALSE)
 add_subdirectory(Vendor/SFML)
 
 # =============================
+# ImGui-Sfml
+# =============================
+set(IMGUI_SFML_FIND_SFML OFF CACHE BOOL "" FORCE)
+set(IMGUI_DIR "../imgui" CACHE PATH "" FORCE)
+
+add_subdirectory(Vendor/imgui-sfml)
+
+# =============================
 # Executable
 # =============================
 add_executable(SpaceSim
@@ -31,7 +39,7 @@ add_executable(SpaceSim
 # =============================
 target_link_libraries(SpaceSim
     PRIVATE
-        sfml-graphics
+        ImGui-SFML::ImGui-SFML
 )
 
 # =============================

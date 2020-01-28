@@ -1,13 +1,10 @@
-#include <SFML/Graphics.hpp>
-
 #include "Application.hpp"
 
-#include <chrono>
+#include <SFML/Graphics.hpp>
 
 int main()
 {
     using namespace SpaceSim;
-    using namespace std::chrono;
     using namespace sf;
 
     RenderWindow window(sf::VideoMode(1280, 720), "SpaceSim");
@@ -15,16 +12,12 @@ int main()
 
     application.OnSetup();
 
-    high_resolution_clock::time_point timer = high_resolution_clock::now();
+    Clock deltaClock;
 
     while (window.isOpen())
     {
-        const auto time = high_resolution_clock::now();
-        const auto dt   = duration<double>(time - timer).count();
-        timer           = time;
-
         window.clear(sf::Color::Black);
-        application.OnFrame(dt);
+        application.OnFrame(deltaClock.restart());
         window.display();
     }
 }

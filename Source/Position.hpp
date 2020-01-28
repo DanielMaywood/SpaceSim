@@ -16,7 +16,7 @@ namespace SpaceSim
     /// <param name="a">One of the positions.</param>
     ///
     /// <returns>Distance between both positions.</returns>
-    double DistanceBetween(const Position &a, const Position &b);
+    float DistanceBetween(const Position &a, const Position &b);
 
     /// <summary>
     /// Calculate the angle between two positions.
@@ -26,5 +26,5 @@ namespace SpaceSim
     /// <param name="a">One of the positions.</param>
     ///
     /// <returns>Angle between two positions (radians).</returns>
-    double AngleBetween(const Position &a, const Position &b);
+    float AngleBetween(const Position &a, const Position &b);
 } // namespace SpaceSim
