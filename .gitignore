@@ -1,0 +1,4 @@
+# Ignore Visual Studio Generated Files/Dirs
+.vs
+Build
+Install
