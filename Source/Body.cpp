@@ -31,6 +31,18 @@ namespace SpaceSim
         };
     }
 
+    Body Body::Mercury()
+    {
+        return Body {
+            .Name     = "Mercury",
+            .Mass     = 3.285e23f,
+            .Radius   = 2'439'700.f,
+            .Position = {53'397'000'000.f, 0.f},
+            .Velocity = {0.f, 48'000.f},
+            .Color    = sf::Color::White,
+        };
+    }
+
     Body Body::Earth()
     {
         return Body {

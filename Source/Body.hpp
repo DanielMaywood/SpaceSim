@@ -19,6 +19,7 @@ namespace SpaceSim
         sf::Color   Color    = sf::Color::Blue;
 
         static Body Sun();
+        static Body Mercury();
         static Body Earth();
         static Body Mars();
     };
