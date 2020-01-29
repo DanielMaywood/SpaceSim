@@ -38,8 +38,8 @@ namespace SpaceSim
 
     void Camera::OnMouseButtonLeftPressed(const sf::Event &event)
     {
-        m_StartMoveCameraFrom = {event.mouseButton.x, event.mouseButton.y};
-        m_MovingCamera        = true;
+        m_MovingCameraLastPosition = {event.mouseButton.x, event.mouseButton.y};
+        m_MovingCamera             = true;
     }
 
     void Camera::OnMouseButtonReleased(const sf::Event &event)
@@ -63,12 +63,12 @@ namespace SpaceSim
         }
 
         sf::Vector2 newPosition = {event.mouseMove.x, event.mouseMove.y};
-        sf::Vector2 change      = m_StartMoveCameraFrom - newPosition;
+        sf::Vector2 change      = m_MovingCameraLastPosition - newPosition;
         sf::Vector2 center      = m_Window.mapCoordsToPixel(m_View.getCenter(), m_View);
 
         m_View.setCenter(m_Window.mapPixelToCoords(center + change));
         m_Window.setView(m_View);
 
-        m_StartMoveCameraFrom = newPosition;
+        m_MovingCameraLastPosition = newPosition;
     }
 } // namespace SpaceSim

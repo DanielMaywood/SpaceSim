@@ -27,7 +27,7 @@ namespace SpaceSim
         sf::RenderWindow &m_Window;
         sf::View &        m_View;
 
-        sf::Vector2i m_StartMoveCameraFrom;
+        sf::Vector2i m_MovingCameraLastPosition;
         bool         m_MovingCamera = false;
     };
 } // namespace SpaceSim
