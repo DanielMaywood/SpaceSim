@@ -8,7 +8,7 @@ namespace SpaceSim
 {
     double DistanceBetween(const Position &a, const Position &b)
     {
-        return std::sqrt(std::pow(a.X + b.X, 2) + std::pow(a.Y + b.Y, 2));
+        return std::sqrt(std::pow(b.X - a.X, 2) + std::pow(b.Y - a.Y, 2));
     }
 
     double AngleBetween(const Position &a, const Position &b)
