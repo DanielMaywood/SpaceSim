@@ -13,7 +13,7 @@ namespace SpaceSim
         : m_Window(window)
         , m_View(window.getDefaultView())
         , m_Camera(m_Window, m_View)
-        , m_SimulationActive(true)
+        , m_SimulationActive(false)
     {
         FixWindowView();
     }
@@ -26,6 +26,7 @@ namespace SpaceSim
         m_SolarSystem.AddBody(Body::Mercury());
         m_SolarSystem.AddBody(Body::Venus());
         m_SolarSystem.AddBody(Body::Earth());
+        m_SolarSystem.AddBody(Body::EarthsMoon());
         m_SolarSystem.AddBody(Body::Mars());
     }
 
@@ -182,7 +183,7 @@ namespace SpaceSim
     {
         const sf::Vector2 windowSize = m_Window.getSize();
 
-        m_View.setSize(static_cast<float>(windowSize.x), static_cast<float>(windowSize.y));
+        m_View.setSize(static_cast<float>(windowSize.x), -static_cast<float>(windowSize.y));
         m_View.setCenter(0.f, 0.f);
 
         m_Window.setView(m_View);

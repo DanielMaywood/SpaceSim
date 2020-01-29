@@ -25,6 +25,7 @@ namespace SpaceSim
         static Body Mercury();
         static Body Venus();
         static Body Earth();
+        static Body EarthsMoon();
         static Body Mars();
     };
 
@@ -57,4 +58,14 @@ namespace SpaceSim
     ///
     /// <returns>Gravitational Field Strength between both Bodies.</returns>
     double GravitationalFieldStrength(const Body &body, const Body &other);
+
+    /// <summary>
+    /// Calculate the Centripetal Acceleration between two Bodies.
+    /// </summary>
+    ///
+    /// <param name="body">One of the Bodies.</param>
+    /// <param name="other">One of the Bodies.</param>
+    ///
+    /// <returns>Centripetal Acceleration between both Bodies.</returns>
+    double CentripetalAcceleration(const Body &body, const Body &other);
 } // namespace SpaceSim

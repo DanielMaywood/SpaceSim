@@ -25,6 +25,14 @@ namespace SpaceSim
         return (GravitationalConstant * other.Mass) / (r * r);
     }
 
+    double CentripetalAcceleration(const Body &body, const Body &other)
+    {
+        const double velocity = std::sqrt(std::pow(body.Velocity.X, 2) + std::pow(body.Velocity.Y, 2));
+        const double distance = body.Radius + other.Radius + DistanceBetween(body, other);
+
+        return velocity / distance;
+    }
+
     void Body::Draw(sf::RenderWindow &window) const
     {
         sf::CircleShape circle;
@@ -81,6 +89,18 @@ namespace SpaceSim
             .Position = {149'600'000'000, 0},
             .Velocity = {0, 30'000},
             .Color    = sf::Color::Green,
+        };
+    }
+
+    Body Body::EarthsMoon()
+    {
+        return Body {
+            .Name     = "Earth's Moon",
+            .Mass     = 7.34767309e22,
+            .Radius   = 1'737'100,
+            .Position = {Earth().Position.X + 384'400'000, 0},
+            .Velocity = {0, Earth().Velocity.Y + 1'022},
+            .Color    = sf::Color::White,
         };
     }
 

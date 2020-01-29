@@ -5,6 +5,7 @@
 #include <SFML/Graphics/CircleShape.hpp>
 
 #include <cmath>
+#include <iostream>
 
 namespace SpaceSim
 {
@@ -45,16 +46,19 @@ namespace SpaceSim
 
     void SolarSystem::UpdateBody(Body &body, double dt)
     {
+        Vector2 Acceleration = {0.0, 0.0};
+
         for (const auto &otherBody : m_Bodies)
         {
             if (std::addressof(body) == std::addressof(otherBody))
                 continue;
 
-            const double fieldStrength = GravitationalFieldStrength(body, otherBody);
-            const double angleBetween  = AngleBetween(body, otherBody);
+            const double centripetalAcceleration = CentripetalAcceleration(body, otherBody);
+            const double fieldStrength           = GravitationalFieldStrength(body, otherBody);
+            const double angleBetween            = AngleBetween(body, otherBody);
 
-            body.Velocity.X -= fieldStrength * std::cos(angleBetween) * dt;
-            body.Velocity.Y -= fieldStrength * std::sin(angleBetween) * dt;
+            body.Velocity.X -= (fieldStrength + centripetalAcceleration) * std::cos(angleBetween) * dt;
+            body.Velocity.Y -= (fieldStrength + centripetalAcceleration) * std::sin(angleBetween) * dt;
         }
 
         body.Position += body.Velocity * dt;
