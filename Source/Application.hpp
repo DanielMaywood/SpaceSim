@@ -25,6 +25,11 @@ namespace SpaceSim
         void ProcessSolarSystemOnFrame(sf::Time dt);
 
         /// <summary>
+        /// Process Camera's Update.
+        /// </summary>
+        void ProcessCameraOnFrame();
+
+        /// <summary>
         /// Process Spawner's Draw.
         /// </summary>
         void ProcessSpawnerOnFrame();

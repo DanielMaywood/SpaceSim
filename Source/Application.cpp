@@ -33,6 +33,7 @@ namespace SpaceSim
     void Application::OnFrame(sf::Time dt)
     {
         ProcessSolarSystemOnFrame(dt);
+        ProcessCameraOnFrame();
         ProcessSpawnerOnFrame();
         ProcessImGuiOnFrame(dt);
 
@@ -47,6 +48,11 @@ namespace SpaceSim
         }
 
         m_SolarSystem.Draw(m_Window);
+    }
+
+    void Application::ProcessCameraOnFrame()
+    {
+        m_Camera.Update();
     }
 
     void Application::ProcessSpawnerOnFrame()
@@ -105,7 +111,7 @@ namespace SpaceSim
         {
             ImGui::Checkbox("Simulation Running", &m_SimulationActive);
             ImGui::Checkbox("ToScaleBodies", &ToScaleBodies);
-            ImGui::InputDouble("ZoomScale", &ZoomScale);
+            ImGui::InputFloat("ZoomScale", &ZoomScale);
             ImGui::InputDouble("TimeScale", &TimeScale);
         }
     }
@@ -118,6 +124,11 @@ namespace SpaceSim
 
             ImGui::Text("System Age: %.1f Earth Years", m_SolarSystem.AgeInEarthYears());
             ImGui::Text("Body Count: %d", bodies.size());
+
+            if (ImGui::Button("Stop Tracking"))
+            {
+                m_Camera.TrackPosition(nullptr);
+            }
 
             if (ImGui::TreeNode("Bodies"))
             {
@@ -132,10 +143,13 @@ namespace SpaceSim
 
                         if (ImGui::Button("Go To"))
                         {
-                            const auto coords = ToCoords({body.Position.X, body.Position.Y});
-
-                            m_View.setCenter(coords);
+                            m_View.setCenter(ToCoords(body.Position));
                             m_Window.setView(m_View);
+                        }
+
+                        if (ImGui::Button("Track"))
+                        {
+                            m_Camera.TrackPosition(&body.Position);
                         }
 
                         ImGui::TreePop();

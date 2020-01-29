@@ -12,6 +12,25 @@ namespace SpaceSim
     {
     }
 
+    void Camera::GoToPosition(const Position &position)
+    {
+        m_View.setCenter(ToCoords(position));
+        m_Window.setView(m_View);
+    }
+
+    void Camera::TrackPosition(const Position *position)
+    {
+        m_TrackingPosition = position;
+    }
+
+    void Camera::Update()
+    {
+        if (m_TrackingPosition)
+        {
+            GoToPosition(*m_TrackingPosition);
+        }
+    }
+
     void Camera::OnEvent(const sf::Event &event)
     {
         switch (event.type)

@@ -13,7 +13,7 @@ namespace SpaceSim
     /// Scalar to control how much the scroll
     /// wheel zooms in the game view.
     ///</summary>
-    extern double ZoomScale;
+    extern float ZoomScale;
 
     /// <summary>
     /// How many ingame seconds happen per

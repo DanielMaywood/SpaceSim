@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector2.hpp"
+#include "Position.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -12,6 +12,11 @@ namespace SpaceSim
     {
     public:
         explicit Camera(sf::RenderWindow &window, sf::View &view);
+
+        void GoToPosition(const Position &position);
+        void TrackPosition(const Position *position);
+
+        void Update();
 
         void OnEvent(const sf::Event &event);
 
@@ -26,6 +31,8 @@ namespace SpaceSim
     private:
         sf::RenderWindow &m_Window;
         sf::View &        m_View;
+
+        const Position *m_TrackingPosition = nullptr;
 
         sf::Vector2i m_MovingCameraLastPosition;
         bool         m_MovingCamera = false;
