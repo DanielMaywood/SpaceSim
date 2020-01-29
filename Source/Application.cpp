@@ -29,6 +29,7 @@ namespace SpaceSim
 
         m_SolarSystem.AddBody(Body::Sun());
         m_SolarSystem.AddBody(Body::Mercury());
+        m_SolarSystem.AddBody(Body::Venus());
         m_SolarSystem.AddBody(Body::Earth());
         m_SolarSystem.AddBody(Body::Mars());
     }

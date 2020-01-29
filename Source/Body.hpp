@@ -20,6 +20,7 @@ namespace SpaceSim
 
         static Body Sun();
         static Body Mercury();
+        static Body Venus();
         static Body Earth();
         static Body Mars();
     };

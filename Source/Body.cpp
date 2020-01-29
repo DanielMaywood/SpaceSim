@@ -43,6 +43,18 @@ namespace SpaceSim
         };
     }
 
+    Body Body::Venus()
+    {
+        return Body {
+            .Name     = "Venus",
+            .Mass     = 4.867e24f,
+            .Radius   = 6'051'800.f,
+            .Position = {108'110'000'000.f, 0.f},
+            .Velocity = {0.f, 35'020.f},
+            .Color    = sf::Color::White,
+        };
+    }
+
     Body Body::Earth()
     {
         return Body {
