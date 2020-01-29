@@ -15,12 +15,7 @@ namespace SpaceSim
         , m_Camera(m_Window, m_View)
         , m_SimulationActive(true)
     {
-        const sf::Vector2 windowSize = window.getSize();
-
-        m_View.setSize(static_cast<float>(windowSize.x), static_cast<float>(windowSize.y));
-        m_View.setCenter(0.f, 0.f);
-
-        m_Window.setView(m_View);
+        FixWindowView();
     }
 
     void Application::OnSetup()
@@ -36,29 +31,57 @@ namespace SpaceSim
 
     void Application::OnFrame(sf::Time dt)
     {
+        ProcessSolarSystemOnFrame(dt);
+        ProcessSpawnerOnFrame();
+        ProcessImGuiOnFrame(dt);
+
+        ProcessEvents();
+    }
+
+    void Application::ProcessSolarSystemOnFrame(sf::Time dt)
+    {
         if (m_SimulationActive)
         {
             m_SolarSystem.Update(dt.asSeconds() * TimeScale);
         }
 
         m_SolarSystem.Draw(m_Window);
-        m_Spawner.Draw(m_Window);
+    }
 
+    void Application::ProcessSpawnerOnFrame()
+    {
+        m_Spawner.Draw(m_Window);
+    }
+
+    void Application::ProcessImGuiOnFrame(sf::Time dt)
+    {
         ImGui::SFML::Update(m_Window, dt);
         DrawImGuiLayer();
         ImGui::SFML::Render(m_Window);
+    }
 
+    void Application::ProcessEvents()
+    {
         for (sf::Event event; m_Window.pollEvent(event);)
         {
-            ImGui::SFML::ProcessEvent(event);
-
-            m_Camera.OnEvent(event);
+            ProcessImGuiOnEvent(event);
+            ProcessCameraOnEvent(event);
 
             switch (event.type)
             {
-            case sf::Event::Closed: CloseWindow(); break;
+            case sf::Event::Closed: m_Window.close(); break;
             }
         }
+    }
+
+    void Application::ProcessImGuiOnEvent(const sf::Event &event)
+    {
+        ImGui::SFML::ProcessEvent(event);
+    }
+
+    void Application::ProcessCameraOnEvent(const sf::Event &event)
+    {
+        m_Camera.OnEvent(event);
     }
 
     void Application::DrawImGuiLayer()
@@ -128,15 +151,18 @@ namespace SpaceSim
         if (ImGui::CollapsingHeader("Spawner"))
         {
             m_Spawner.SetActive(true);
+
             auto &body = m_Spawner.GetBody();
 
             ImGui::InputText("Name", body.Name.data(), body.Name.size());
 
-            if (ImGui::Button("Set Position As Center"))
-                body.Position = {m_View.getCenter().x / PixelPerM, m_View.getCenter().y / PixelPerM};
-
             ImGui::InputDouble("Pos X", &body.Position.X);
             ImGui::InputDouble("Pos Y", &body.Position.Y);
+
+            if (ImGui::Button("Set Position As Center"))
+            {
+                body.Position = ToPosition(m_View.getCenter());
+            }
 
             ImGui::InputDouble("Mass", &body.Mass);
             ImGui::InputDouble("Radius", &body.Radius);
@@ -147,11 +173,19 @@ namespace SpaceSim
             }
         }
         else
+        {
             m_Spawner.SetActive(false);
+        }
     }
 
-    void Application::CloseWindow()
+    void Application::FixWindowView()
     {
-        m_Window.close();
+        const sf::Vector2 windowSize = m_Window.getSize();
+
+        m_View.setSize(static_cast<float>(windowSize.x), static_cast<float>(windowSize.y));
+        m_View.setCenter(0.f, 0.f);
+
+        m_Window.setView(m_View);
     }
+
 } // namespace SpaceSim

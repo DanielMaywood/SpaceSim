@@ -29,8 +29,8 @@ namespace SpaceSim
     {
         sf::CircleShape circle;
 
-        circle.setRadius(ToScaleBodies ? Radius * PixelPerM : 3.f);
-        circle.setOrigin(ToScaleBodies ? ToCoords({ Radius, Radius })
+        circle.setRadius(ToScaleBodies ? static_cast<float>(Radius * PixelPerM) : 3.f);
+        circle.setOrigin(ToScaleBodies ? ToCoords({Radius, Radius})
                                        : sf::Vector2 {circle.getRadius(), circle.getRadius()});
         circle.setFillColor(Color);
         circle.setPosition(ToCoords(Position));

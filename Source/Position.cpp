@@ -18,6 +18,11 @@ namespace SpaceSim
 
     sf::Vector2f ToCoords(const Position &position)
     {
-        return {static_cast<float>(position.X * PixelPerM),static_cast<float>(position.Y * PixelPerM)};
+        return {static_cast<float>(position.X * PixelPerM), static_cast<float>(position.Y * PixelPerM)};
+    }
+
+    Position ToPosition(const sf::Vector2f &coords)
+    {
+        return {coords.x / PixelPerM, coords.y / PixelPerM};
     }
 } // namespace SpaceSim

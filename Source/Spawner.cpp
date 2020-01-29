@@ -6,7 +6,7 @@
 
 namespace SpaceSim
 {
-    void Spawner::Spawn(SolarSystem& solarSystem)
+    void Spawner::Spawn(SolarSystem &solarSystem)
     {
         solarSystem.AddBody(m_BodyToSpawn);
 
@@ -32,4 +32,4 @@ namespace SpaceSim
     {
         return m_BodyToSpawn;
     }
-}
+} // namespace SpaceSim
