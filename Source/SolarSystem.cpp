@@ -2,6 +2,8 @@
 
 #include "Settings.hpp"
 
+#include <SFML/Graphics/CircleShape.hpp>
+
 #include <cmath>
 
 namespace SpaceSim

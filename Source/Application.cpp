@@ -12,6 +12,7 @@ namespace SpaceSim
     Application::Application(sf::RenderWindow &window)
         : m_Window(window)
         , m_View(window.getDefaultView())
+        , m_Camera(m_Window, m_View)
         , m_SimulationActive(true)
     {
         const sf::Vector2 windowSize = window.getSize();
@@ -49,10 +50,11 @@ namespace SpaceSim
         {
             ImGui::SFML::ProcessEvent(event);
 
+            m_Camera.OnEvent(event);
+
             switch (event.type)
             {
             case sf::Event::Closed: CloseWindow(); break;
-            case sf::Event::MouseWheelMoved: ZoomInWindow(event); break;
             }
         }
     }
@@ -104,12 +106,5 @@ namespace SpaceSim
     void Application::CloseWindow()
     {
         m_Window.close();
-    }
-
-    void Application::ZoomInWindow(const sf::Event &event)
-    {
-        m_View.zoom(event.mouseWheel.delta * -0.05f + 1.f);
-
-        m_Window.setView(m_View);
     }
 } // namespace SpaceSim

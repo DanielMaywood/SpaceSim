@@ -32,7 +32,9 @@ add_executable(SpaceSim
     "Source/Position.cpp"
     "Source/SolarSystem.cpp"
     "Source/Velocity.cpp"
-    "Source/Application.cpp" "Source/Settings.cpp")
+    "Source/Application.cpp"
+    "Source/Settings.cpp"
+    "Source/Camera.cpp")
 
 # =============================
 # Libraries
