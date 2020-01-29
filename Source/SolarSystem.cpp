@@ -13,7 +13,7 @@ namespace SpaceSim
         m_Bodies.emplace_back(std::move(body));
     }
 
-    void SolarSystem::Update(float dt)
+    void SolarSystem::Update(double dt)
     {
         m_Time += dt;
 
@@ -29,20 +29,21 @@ namespace SpaceSim
 
         for (const auto &body : m_Bodies)
         {
-            const auto ToPixel = [&](float point) {
-                return point * PixelPerM;
-            };
+            if (ToScaleBodies)
+            {
+                circle.setRadius(static_cast<float>(body.Radius * PixelPerM));
+            }
 
             circle.setFillColor(body.Color);
-            circle.setPosition(ToPixel(body.Position.X), ToPixel(body.Position.Y));
+            circle.setPosition(ToCoords(body.Position));
 
             window.draw(circle);
         }
     }
 
-    float SolarSystem::AgeInYears() const
+    double SolarSystem::AgeInYears() const
     {
-        return m_Time / (60.f * 60.f * 24.f * 365.25f);
+        return m_Time / (60.0 * 60.0 * 24.0 * 365.25);
     }
 
     std::vector<Body> &SolarSystem::GetBodies()
@@ -50,15 +51,15 @@ namespace SpaceSim
         return m_Bodies;
     }
 
-    void SolarSystem::UpdateBody(Body &body, float dt)
+    void SolarSystem::UpdateBody(Body &body, double dt)
     {
         for (const auto &otherBody : m_Bodies)
         {
             if (std::addressof(body) == std::addressof(otherBody))
                 continue;
 
-            const float fieldStrength = GravitationalFieldStrength(body, otherBody);
-            const float angleBetween  = AngleBetween(body, otherBody);
+            const double fieldStrength = GravitationalFieldStrength(body, otherBody);
+            const double angleBetween  = AngleBetween(body, otherBody);
 
             body.Velocity.X -= fieldStrength * std::cos(angleBetween) * dt;
             body.Velocity.Y -= fieldStrength * std::sin(angleBetween) * dt;

@@ -2,6 +2,7 @@
 
 namespace SpaceSim
 {
-    float PixelPerM = 1.36571e-09f;
-    float TimeScale = 60.f * 60.f * 24.f * 20.f;
+    double PixelPerM = 1.36571e-09;
+    double TimeScale = 60.0 * 60.0 * 24.0 * 20.0;
+    bool   ToScaleBodies = false;
 } // namespace SpaceSim

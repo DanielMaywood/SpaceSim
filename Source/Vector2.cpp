@@ -18,7 +18,7 @@ namespace SpaceSim
         return *this;
     }
 
-    Vector2 &Vector2::operator*=(float scalar)
+    Vector2 &Vector2::operator*=(double scalar)
     {
         X *= scalar;
         Y *= scalar;
@@ -36,7 +36,7 @@ namespace SpaceSim
         return obj -= other;
     }
 
-    Vector2 operator*(Vector2 obj, float scalar)
+    Vector2 operator*(Vector2 obj, double scalar)
     {
         return obj *= scalar;
     }

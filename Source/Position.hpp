@@ -2,6 +2,8 @@
 
 #include "Vector2.hpp"
 
+#include <SFML/System/Vector2.hpp>
+
 namespace SpaceSim
 {
     class Position : public Vector2
@@ -16,7 +18,7 @@ namespace SpaceSim
     /// <param name="a">One of the positions.</param>
     ///
     /// <returns>Distance between both positions.</returns>
-    float DistanceBetween(const Position &a, const Position &b);
+    double DistanceBetween(const Position &a, const Position &b);
 
     /// <summary>
     /// Calculate the angle between two positions.
@@ -26,5 +28,7 @@ namespace SpaceSim
     /// <param name="a">One of the positions.</param>
     ///
     /// <returns>Angle between two positions (radians).</returns>
-    float AngleBetween(const Position &a, const Position &b);
+    double AngleBetween(const Position &a, const Position &b);
+    
+    sf::Vector2f ToCoords(const Position &position);
 } // namespace SpaceSim

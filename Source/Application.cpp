@@ -64,19 +64,28 @@ namespace SpaceSim
     void Application::DrawImGuiLayer()
     {
         ImGui::SetNextWindowPos({50, 50});
+        ImGui::SetNextWindowSize({350, 600});
 
-        ImGui::Begin("SpaceSim");
+        ImGui::Begin("SpaceSim", nullptr, ImGuiWindowFlags_NoResize);
 
-        /// ==== Settings
+        DrawImGuiLayer_Settings();
+        DrawImGuiLayer_Bodies();
 
+        ImGui::End();
+    }
+
+    void Application::DrawImGuiLayer_Settings()
+    {
         if (ImGui::CollapsingHeader("Settings"))
         {
             ImGui::Checkbox("Simulation Running", &m_SimulationActive);
-            ImGui::InputFloat("TimeScale", &TimeScale);
+            ImGui::Checkbox("ToScaleBodies", &ToScaleBodies);
+            ImGui::InputDouble("TimeScale", &TimeScale);
         }
+    }
 
-        /// ==== Bodies
-
+    void Application::DrawImGuiLayer_Bodies()
+    {
         if (ImGui::CollapsingHeader("Bodies"))
         {
             const auto &bodies = m_SolarSystem.GetBodies();
@@ -90,9 +99,18 @@ namespace SpaceSim
                 {
                     if (ImGui::TreeNode(body.Name.c_str()))
                     {
-                        ImGui::Text("Mass: %.0fkg", body.Mass);
-                        ImGui::Text("Position: (%.0f,%.0f)", body.Position.X, body.Position.Y);
-                        ImGui::Text("Velocity: (%.0f,%.0f)", body.Velocity.X, body.Velocity.Y);
+                        ImGui::Text("Mass: %ekg", body.Mass);
+                        ImGui::Text("Radius: %em", body.Radius);
+                        ImGui::Text("Position: (%e,%e)", body.Position.X, body.Position.Y);
+                        ImGui::Text("Velocity: (%e,%e)", body.Velocity.X, body.Velocity.Y);
+
+                        if (ImGui::Button("Go To"))
+                        {
+                            const auto coords = ToCoords({body.Position.X + body.Radius,body.Position.Y + body.Radius});
+
+                            m_View.setCenter(coords);
+                            m_Window.setView(m_View);
+                        }
 
                         ImGui::TreePop();
                     }
@@ -101,8 +119,6 @@ namespace SpaceSim
                 ImGui::TreePop();
             }
         }
-
-        ImGui::End();
     }
 
     void Application::CloseWindow()

@@ -12,10 +12,10 @@ namespace SpaceSim
     struct Body
     {
         std::string Name;
-        float       Mass     = 0.f;
-        float       Radius   = 0.f;
-        Position    Position = {0.f, 0.f};
-        Velocity    Velocity = {0.f, 0.f};
+        double      Mass     = 0.0;
+        double      Radius   = 0.0;
+        Position    Position = {0.0, 0.0};
+        Velocity    Velocity = {0.0, 0.0};
         sf::Color   Color    = sf::Color::Blue;
 
         static Body Sun();
@@ -25,7 +25,7 @@ namespace SpaceSim
         static Body Mars();
     };
 
-    float DistanceBetween(const Body &body, const Body &other);
-    float AngleBetween(const Body &body, const Body &other);
-    float GravitationalFieldStrength(const Body &body, const Body &other);
+    double DistanceBetween(const Body &body, const Body &other);
+    double AngleBetween(const Body &body, const Body &other);
+    double GravitationalFieldStrength(const Body &body, const Body &other);
 } // namespace SpaceSim

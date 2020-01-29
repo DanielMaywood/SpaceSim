@@ -17,6 +17,8 @@ namespace SpaceSim
 
     private:
         void DrawImGuiLayer();
+        void DrawImGuiLayer_Settings();
+        void DrawImGuiLayer_Bodies();
 
         void CloseWindow();
 

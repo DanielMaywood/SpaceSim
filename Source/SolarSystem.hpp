@@ -12,19 +12,19 @@ namespace SpaceSim
     {
     public:
         void AddBody(Body body);
-        void Update(float dt);
+        void Update(double dt);
 
         void Draw(sf::RenderWindow &window) const;
 
-        float AgeInYears() const;
+        double AgeInYears() const;
 
         std::vector<Body> &GetBodies();
 
     private:
-        void UpdateBody(Body &body, float dt);
+        void UpdateBody(Body &body, double dt);
 
     private:
         std::vector<Body> m_Bodies;
-        float             m_Time = 0.f;
+        double             m_Time = 0.0;
     };
 } // namespace SpaceSim

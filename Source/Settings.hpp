@@ -2,6 +2,7 @@
 
 namespace SpaceSim
 {
-    extern float PixelPerM;
-    extern float TimeScale;
+    extern double PixelPerM;
+    extern double TimeScale;
+    extern bool   ToScaleBodies;
 } // namespace SpaceSim

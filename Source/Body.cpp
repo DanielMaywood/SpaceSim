@@ -2,21 +2,21 @@
 
 namespace SpaceSim
 {
-    float DistanceBetween(const Body &body, const Body &other)
+    double DistanceBetween(const Body &body, const Body &other)
     {
         return DistanceBetween(body.Position, other.Position);
     }
 
-    float AngleBetween(const Body &body, const Body &other)
+    double AngleBetween(const Body &body, const Body &other)
     {
         return AngleBetween(body.Position, other.Position);
     }
 
-    float GravitationalFieldStrength(const Body &body, const Body &other)
+    double GravitationalFieldStrength(const Body &body, const Body &other)
     {
-        static constexpr const float GravitationalConstant = 6.67e-11f;
+        static constexpr const double GravitationalConstant = 6.67e-11;
 
-        const float r = body.Radius + other.Radius + DistanceBetween(body, other);
+        const double r = body.Radius + other.Radius + DistanceBetween(body, other);
 
         return (GravitationalConstant * other.Mass) / (r * r);
     }
@@ -25,8 +25,8 @@ namespace SpaceSim
     {
         return Body {
             .Name   = "Sun",
-            .Mass   = 1.989e30f,
-            .Radius = 696'342'000.f,
+            .Mass   = 1.989e30,
+            .Radius = 696'342'000,
             .Color  = sf::Color::Yellow,
         };
     }
@@ -35,10 +35,10 @@ namespace SpaceSim
     {
         return Body {
             .Name     = "Mercury",
-            .Mass     = 3.285e23f,
-            .Radius   = 2'439'700.f,
-            .Position = {53'397'000'000.f, 0.f},
-            .Velocity = {0.f, 48'000.f},
+            .Mass     = 3.285e23,
+            .Radius   = 2'439'700,
+            .Position = {53'397'000'000, 0},
+            .Velocity = {0, 48'000},
             .Color    = sf::Color::White,
         };
     }
@@ -47,10 +47,10 @@ namespace SpaceSim
     {
         return Body {
             .Name     = "Venus",
-            .Mass     = 4.867e24f,
-            .Radius   = 6'051'800.f,
-            .Position = {108'110'000'000.f, 0.f},
-            .Velocity = {0.f, 35'020.f},
+            .Mass     = 4.867e24,
+            .Radius   = 6'051'800,
+            .Position = {108'110'000'000, 0},
+            .Velocity = {0, 35'020},
             .Color    = sf::Color::White,
         };
     }
@@ -59,10 +59,10 @@ namespace SpaceSim
     {
         return Body {
             .Name     = "Earth",
-            .Mass     = 5.792e24f,
-            .Radius   = 6'371'000.f,
-            .Position = {149'600'000'000.f, 0.f},
-            .Velocity = {0.f, 30'000.f},
+            .Mass     = 5.792e24,
+            .Radius   = 6'371'000,
+            .Position = {149'600'000'000, 0},
+            .Velocity = {0, 30'000},
             .Color    = sf::Color::Green,
         };
     }
@@ -71,10 +71,10 @@ namespace SpaceSim
     {
         return Body {
             .Name     = "Mars",
-            .Mass     = 6.39e23f,
-            .Radius   = 3'389'500.f,
-            .Position = {234'310'000'000.f, 0.f},
-            .Velocity = {0.f, 24'000.f},
+            .Mass     = 6.39e23,
+            .Radius   = 3'389'500,
+            .Position = {234'310'000'000, 0},
+            .Velocity = {0, 24'000},
             .Color    = sf::Color::Red,
         };
     }
