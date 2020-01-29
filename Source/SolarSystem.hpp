@@ -16,7 +16,7 @@ namespace SpaceSim
 
         void Draw(sf::RenderWindow &window) const;
 
-        double AgeInYears() const;
+        double AgeInEarthYears() const;
 
         std::vector<Body> &GetBodies();
 

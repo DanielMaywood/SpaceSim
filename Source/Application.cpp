@@ -36,13 +36,13 @@ namespace SpaceSim
 
     void Application::OnFrame(sf::Time dt)
     {
-
         if (m_SimulationActive)
         {
             m_SolarSystem.Update(dt.asSeconds() * TimeScale);
         }
 
         m_SolarSystem.Draw(m_Window);
+        m_Spawner.Draw(m_Window);
 
         ImGui::SFML::Update(m_Window, dt);
         DrawImGuiLayer();
@@ -70,6 +70,7 @@ namespace SpaceSim
 
         DrawImGuiLayer_Settings();
         DrawImGuiLayer_Bodies();
+        DrawImGuiLayer_Spawner();
 
         ImGui::End();
     }
@@ -80,6 +81,7 @@ namespace SpaceSim
         {
             ImGui::Checkbox("Simulation Running", &m_SimulationActive);
             ImGui::Checkbox("ToScaleBodies", &ToScaleBodies);
+            ImGui::InputDouble("ZoomScale", &ZoomScale);
             ImGui::InputDouble("TimeScale", &TimeScale);
         }
     }
@@ -90,7 +92,7 @@ namespace SpaceSim
         {
             const auto &bodies = m_SolarSystem.GetBodies();
 
-            ImGui::Text("System Age: %.1f years", m_SolarSystem.AgeInYears());
+            ImGui::Text("System Age: %.1f Earth Years", m_SolarSystem.AgeInEarthYears());
             ImGui::Text("Body Count: %d", bodies.size());
 
             if (ImGui::TreeNode("Bodies"))
@@ -106,7 +108,7 @@ namespace SpaceSim
 
                         if (ImGui::Button("Go To"))
                         {
-                            const auto coords = ToCoords({body.Position.X + body.Radius,body.Position.Y + body.Radius});
+                            const auto coords = ToCoords({body.Position.X, body.Position.Y});
 
                             m_View.setCenter(coords);
                             m_Window.setView(m_View);
@@ -119,6 +121,33 @@ namespace SpaceSim
                 ImGui::TreePop();
             }
         }
+    }
+
+    void Application::DrawImGuiLayer_Spawner()
+    {
+        if (ImGui::CollapsingHeader("Spawner"))
+        {
+            m_Spawner.SetActive(true);
+            auto &body = m_Spawner.GetBody();
+
+            ImGui::InputText("Name", body.Name.data(), body.Name.size());
+
+            if (ImGui::Button("Set Position As Center"))
+                body.Position = {m_View.getCenter().x / PixelPerM, m_View.getCenter().y / PixelPerM};
+
+            ImGui::InputDouble("Pos X", &body.Position.X);
+            ImGui::InputDouble("Pos Y", &body.Position.Y);
+
+            ImGui::InputDouble("Mass", &body.Mass);
+            ImGui::InputDouble("Radius", &body.Radius);
+
+            if (ImGui::Button("Spawn"))
+            {
+                m_Spawner.Spawn(m_SolarSystem);
+            }
+        }
+        else
+            m_Spawner.SetActive(false);
     }
 
     void Application::CloseWindow()

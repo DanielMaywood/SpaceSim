@@ -1,5 +1,7 @@
 #include "Camera.hpp"
 
+#include "Settings.hpp"
+
 #include <iostream>
 
 namespace SpaceSim
@@ -23,7 +25,11 @@ namespace SpaceSim
 
     void Camera::OnMouseWheelMoved(const sf::Event &event)
     {
-        m_View.zoom(event.mouseWheel.delta * -0.05f + 1.f);
+        m_View.zoom(event.mouseWheel.delta * -ZoomScale + 1.f);
+        //if (event.mouseWheel.delta == 1)
+         //   m_View.zoom(1 / ZoomScale);
+        //else
+         //   m_View.zoom(1 * ZoomScale);
 
         m_Window.setView(m_View);
     }

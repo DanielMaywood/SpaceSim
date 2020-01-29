@@ -1,5 +1,9 @@
 #include "Body.hpp"
 
+#include "Settings.hpp"
+
+#include <SFML/Graphics/CircleShape.hpp>
+
 namespace SpaceSim
 {
     double DistanceBetween(const Body &body, const Body &other)
@@ -19,6 +23,19 @@ namespace SpaceSim
         const double r = body.Radius + other.Radius + DistanceBetween(body, other);
 
         return (GravitationalConstant * other.Mass) / (r * r);
+    }
+
+    void Body::Draw(sf::RenderWindow &window) const
+    {
+        sf::CircleShape circle;
+
+        circle.setRadius(ToScaleBodies ? Radius * PixelPerM : 3.f);
+        circle.setOrigin(ToScaleBodies ? ToCoords({ Radius, Radius })
+                                       : sf::Vector2 {circle.getRadius(), circle.getRadius()});
+        circle.setFillColor(Color);
+        circle.setPosition(ToCoords(Position));
+
+        window.draw(circle);
     }
 
     Body Body::Sun()

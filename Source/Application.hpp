@@ -3,6 +3,9 @@
 #include "Camera.hpp"
 #include "SolarSystem.hpp"
 
+#include "Spawner.hpp"
+#include "Camera.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace SpaceSim
@@ -19,6 +22,7 @@ namespace SpaceSim
         void DrawImGuiLayer();
         void DrawImGuiLayer_Settings();
         void DrawImGuiLayer_Bodies();
+        void DrawImGuiLayer_Spawner();
 
         void CloseWindow();
 
@@ -26,6 +30,7 @@ namespace SpaceSim
         sf::RenderWindow &m_Window;
         sf::View          m_View;
         Camera            m_Camera;
+        Spawner           m_Spawner;
         SolarSystem       m_SolarSystem;
         bool              m_SimulationActive;
     };

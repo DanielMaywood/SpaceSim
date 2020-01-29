@@ -34,7 +34,8 @@ add_executable(SpaceSim
     "Source/Velocity.cpp"
     "Source/Application.cpp"
     "Source/Settings.cpp"
-    "Source/Camera.cpp")
+    "Source/Camera.cpp"
+    "Source/Spawner.cpp")
 
 # =============================
 # Libraries

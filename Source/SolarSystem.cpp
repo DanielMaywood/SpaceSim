@@ -29,19 +29,11 @@ namespace SpaceSim
 
         for (const auto &body : m_Bodies)
         {
-            if (ToScaleBodies)
-            {
-                circle.setRadius(static_cast<float>(body.Radius * PixelPerM));
-            }
-
-            circle.setFillColor(body.Color);
-            circle.setPosition(ToCoords(body.Position));
-
-            window.draw(circle);
+            body.Draw(window);
         }
     }
 
-    double SolarSystem::AgeInYears() const
+    double SolarSystem::AgeInEarthYears() const
     {
         return m_Time / (60.0 * 60.0 * 24.0 * 365.25);
     }
