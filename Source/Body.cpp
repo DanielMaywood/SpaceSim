@@ -27,8 +27,8 @@ namespace SpaceSim
 
     double CentripetalAcceleration(const Body &body, const Body &other)
     {
-        const double velocity = std::sqrt(std::pow(other.Velocity.X - body.Velocity.X, 2) +
-                                          std::pow(other.Velocity.Y - body.Velocity.Y, 2));
+        const double velocity = std::sqrt(std::pow(/*other.Velocity.X - */ body.Velocity.X, 2) +
+                                          std::pow(/*other.Velocity.Y - */ body.Velocity.Y, 2));
         const double distance = body.Radius + other.Radius + DistanceBetween(body, other);
 
         return velocity / distance;
